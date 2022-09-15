@@ -129,8 +129,8 @@ workflows:
            tag: 'web-app-1.0'    
        - prod-deployment:
            cluster-name: prod-cluster
-           requires:
-              - aws-eks/create-cluster
+          # requires:
+            #  - aws-eks/create-cluster
        - lint-test-app:
            requires:
              - prod-deployment
