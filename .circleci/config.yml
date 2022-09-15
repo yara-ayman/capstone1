@@ -27,7 +27,8 @@ jobs:
           
   ########## Deploy the Original old Application using Circleci Orbs ##########
    prod-deployment:
-     executor: aws-eks/python3
+     docker:
+      - image: 'cimg/python:3.10'
      parameters:
        cluster-name:
          description: |
@@ -84,7 +85,8 @@ jobs:
 
   ########## This steps if for rolling deployment to replace the old pods with the new pods ##########
    new-deployment:
-     executor: aws-eks/python3
+     docker:
+      - image: 'cimg/python:3.10'
      parameters:
        cluster-name:
          description: |
