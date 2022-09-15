@@ -133,8 +133,8 @@ workflows:
            registry-id: registry_id          
        - prod-deployment:
            cluster-name: prod-cluster
-          # requires:
-            #  - aws-eks/create-cluster
+           requires:
+              - aws-ecr/build-and-push-image
       # - lint-test-app:
        #    requires:
           #   - prod-deployment
