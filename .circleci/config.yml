@@ -2,8 +2,7 @@ version: 2.1
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.15.3
-  aws-eks: circleci/aws-eks@2.2.0
-  cimg:  cci-dev/cimg@0.0.27
+  aws-eks: aws-eks@2.1.2
   kubernetes: circleci/kubernetes@0.4.0
 
 jobs:
@@ -28,7 +27,7 @@ jobs:
           
   ########## Deploy the Original old Application using Circleci Orbs ##########
    prod-deployment:
-     executor: cimg/python:3.10
+     executor: aws-eks/python3
      parameters:
        cluster-name:
          description: |
@@ -85,7 +84,7 @@ jobs:
 
   ########## This steps if for rolling deployment to replace the old pods with the new pods ##########
    new-deployment:
-     executor: cimg/python:3.10
+     executor: aws-eks/python3
      parameters:
        cluster-name:
          description: |
