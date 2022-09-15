@@ -130,7 +130,7 @@ workflows:
            repo: devops-project
            tag: 'web-app-1.0'  
            region: us-east-1
-           registry-id: ${registry_id}           
+           registry-id: registry_id          
        - prod-deployment:
            cluster-name: prod-cluster
           # requires:
