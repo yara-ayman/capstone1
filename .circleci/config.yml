@@ -139,10 +139,10 @@ workflows:
            tag: 'web-app-2.0'
            requires:
              - lint-test-app
-       - new-deployment:
-           cluster-name: prod-cluster
-           requires:
-             - aws-ecr/build-and-push-image
+      # - new-deployment:
+          # cluster-name: prod-cluster
+         #  requires:
+          #   - aws-ecr/build-and-push-image
   ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
        - aws-eks/delete-cluster:
           cluster-name: prod-cluster
