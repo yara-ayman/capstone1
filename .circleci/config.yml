@@ -47,12 +47,13 @@ jobs:
            name: "Post Main Deployment Commands For Testing Main Application & Deployment"
            command: |
              kubectl get nodes
-             docker image ls
              kubectl get deployment
              kubectl get services
              kubectl get pods
              sleep 30
              kubectl get services
+             sleep 30
+             kubectl get pods
              echo $lb
              export lb=`kubectl get service | tail -1 | cut -d " " -f 10`
              curl "http://$lb:8000"
