@@ -122,8 +122,11 @@ workflows:
   ########## In workflow section, Calling the jobs and Order it in correct order ##########
   deployment:
     jobs:
-       - aws-eks/create-cluster:
-           cluster-name: prod-cluster
+     #  - aws-eks/create-cluster:
+      #     cluster-name: prod-cluster
+       - aws-ecr/build-and-push-image:
+           repo: devops-project
+           tag: 'web-app-1.0'    
        - prod-deployment:
            cluster-name: prod-cluster
            requires:
