@@ -1,0 +1,145 @@
+version: 2.1
+
+orbs:
+  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-eks: circleci/aws-eks@0.2.3
+  kubernetes: circleci/kubernetes@0.4.0
+
+#jobs:
+  ########## This step used initially to create the EKS cluster using Circleci Orbs instead of doing that manually ###########
+  # prod-cluster:
+  #   executor: aws-eks/python3
+  #   parameters:
+  #     cluster-name:
+  #       description: |
+  #         Name of the EKS cluster
+  #       type: string
+  #   steps:
+  #     - checkout
+  #     - kubernetes/install
+  #     - aws-eks/update-kubeconfig-with-authenticator:
+  #         cluster-name: << parameters.cluster-name >>
+  #         install-kubectl: true
+  #     - run:
+  #         name: "Verifying the creating cluster nodes"
+  #         command: |
+  #           kubectl get nodes
+          
+  ########## Deploy the Original old Application using Circleci Orbs ##########
+  # prod-deployment:
+  #   executor: aws-eks/python3
+  #   parameters:
+  #     cluster-name:
+  #       description: |
+  #         Name of the EKS cluster
+  #       type: string
+  #       default: prod-cluster
+  #   steps:
+  #     - checkout
+  #     - aws-eks/update-kubeconfig-with-authenticator:
+  #         cluster-name: << parameters.cluster-name >>
+  #         install-kubectl: true
+  #     - kubernetes/create-or-update-resource:
+  #         resource-file-path: main-deployment.yml
+  #         resource-name: deployment/main-deployment.yml
+  #     - run:
+  #         name: "Post Main Deployment Commands For Testing Main Application & Deployment"
+  #         command: |
+  #           kubectl get nodes
+  #           kubectl get deployment
+  #           kubectl get services
+  #           kubectl get pods
+  #           sleep 30
+  #           kubectl get services
+  #           echo $lb
+  #           export lb=`kubectl get service | tail -1 | cut -d " " -f 10`
+  #           curl "http://$lb:8000"
+
+  ########## This steps is for liniting & testing the new application and Dockerfile after doing some modifications ##########
+  # lint-test-app:
+  #   docker:
+  #     - image: python:3.7.3-stretch
+  #   working_directory: ~/repo
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: "Setup Environment & Install packages"
+  #         command: |
+  #           make setup
+  #           make install
+  #     - run:
+  #         name: "Linting Code"
+  #         command: |
+  #           . venv/bin/activate
+  #           make lint
+  #     - run:
+  #         name: "Testing Code"
+  #         command: |
+  #           . venv/bin/activate
+  #           ls -lah
+  #           make install
+  #           make test
+
+  ########## Building and Pushing the new docker image to ECR is done using Circleci orbs, it can be found in the workflow section ##########
+
+  ########## This steps if for rolling deployment to replace the old pods with the new pods ##########
+  # new-deployment:
+  #   executor: aws-eks/python3
+  #   parameters:
+  #     cluster-name:
+  #       description: |
+  #         Name of the EKS cluster
+  #       type: string
+  #       default: prod-cluster
+  #   steps:
+  #     - checkout
+  #     - aws-eks/update-kubeconfig-with-authenticator:
+  #         cluster-name: << parameters.cluster-name >>
+  #         install-kubectl: true
+  #     - kubernetes/create-or-update-resource:
+  #         get-rollout-status: true
+  #         resource-file-path: rolling-deployment.yml
+  #         resource-name: deployment/web-app-deployment
+  #     - run:
+  #         name: "Post Rolling Deployment Commands For Testing New Application"
+  #         command: |
+  #           kubectl get nodes
+  #           kubectl get deployment
+  #           kubectl get services
+  #           kubectl get pods
+  #           sleep 30
+  #           export lb=`kubectl get service | tail -1 | cut -d " " -f 10`
+  #           echo $lb
+  #           export url="http://$lb:8000"
+  #           curl $url
+  #           curl "$url/hi/"
+  #           curl "$url/hi/hazem"
+  #           kubectl get pods
+
+workflows:
+  ########## In workflow section, Calling the jobs and Order it in correct order ##########
+  deployment:
+    jobs:
+      # - aws-eks/create-cluster:
+      #     cluster-name: prod-cluster
+  #     - prod-deployment:
+  #         cluster-name: prod-cluster
+  #         # requires:
+  #         #   - aws-eks/create-cluster
+  #     - lint-test-app:
+  #         requires:
+  #           - prod-deployment
+  #     - aws-ecr/build-and-push-image:
+  #         repo: devops-project
+  #         tag: 'web-app-2.0'
+  #         requires:
+  #           - lint-test-app
+  #     - new-deployment:
+  #         cluster-name: prod-cluster
+  #         requires:
+  #           - aws-ecr/build-and-push-image
+  ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
+      - aws-eks/delete-cluster:
+          cluster-name: prod-cluster
+          # requires:
+          #     - new-deployment
