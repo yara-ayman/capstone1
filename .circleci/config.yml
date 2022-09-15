@@ -119,7 +119,7 @@ jobs:
              kubectl get pods
 
 workflows:
-  ########## In workflow section, Calling the jobs and Order it in correct order ##########
+  ########## In workflow sectiosn, Calling the jobs and Order it in correct order ##########
   deployment:
     jobs:
      #  - aws-eks/create-cluster:
