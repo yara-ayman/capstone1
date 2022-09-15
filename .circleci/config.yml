@@ -47,6 +47,7 @@ jobs:
            name: "Post Main Deployment Commands For Testing Main Application & Deployment"
            command: |
              kubectl get nodes
+             docker image ls
              kubectl get deployment
              kubectl get services
              kubectl get pods
