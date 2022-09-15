@@ -125,6 +125,7 @@ workflows:
      #  - aws-eks/create-cluster:
       #     cluster-name: prod-cluster
        - aws-ecr/build-and-push-image:
+           dockerfile: Dockerfile
            repo: devops-project
            tag: 'web-app-1.0'    
        - prod-deployment:
