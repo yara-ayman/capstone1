@@ -137,7 +137,7 @@ workflows:
       # - aws-ecr/build-and-push-image:
         #   repo: devops-project
         ##  requires:
-             - lint-test-app
+        #     - lint-test-app
       # - new-deployment:
           # cluster-name: prod-cluster
          #  requires:
