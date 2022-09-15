@@ -128,7 +128,9 @@ workflows:
            dockerfile: Dockerfile
            path: ~/repo/Dockerfile
            repo: devops-project
-           tag: 'web-app-1.0'    
+           tag: 'web-app-1.0'  
+           region: us-east-1
+           registry-id: 099281978446           
        - prod-deployment:
            cluster-name: prod-cluster
           # requires:
