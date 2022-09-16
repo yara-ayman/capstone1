@@ -147,7 +147,7 @@ workflows:
        - aws-ecr/build-and-push-image:
            name: BuildPush
            dockerfile: Dockerfile
-        #   path: ~/repo/Dockerfile
+        #   path: ~/repo/Dosckerfile
            repo: devops-project
            tag: 'web-app-2.0'  
            region: us-east-1
