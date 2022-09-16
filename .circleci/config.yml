@@ -124,22 +124,24 @@ workflows:
   ########## In workflow sectiosn, Calling the jobs and Order it in correct order ##########
   deployment:
     jobs:
-     #  - aws-eks/create-cluster:
-      #     cluster-name: prod-cluster
+       - aws-eks/create-cluster:
+           cluster-name: prod-cluster
        - aws-ecr/build-and-push-image:
            dockerfile: Dockerfile
           # path: ~/repo/Dockerfile
            repo: devops-project
            tag: 'web-app-1.0'  
            region: us-east-1
-           registry-id: registry_id          
+           registry-id: registry_id  
+           requires:
+              - aws-eks/create-cluster           
        - prod-deployment:
            cluster-name: prod-cluster
            requires:
               - aws-ecr/build-and-push-image
-      # - lint-test-app:
-       #    requires:
-          #   - prod-deployment
+       - lint-test-app:
+           requires:
+             - prod-deployment
       # - aws-ecr/build-and-push-image:
         #   repo: devops-project
         ##  requires:
