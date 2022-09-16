@@ -18,9 +18,9 @@ class BasicTestCase(unittest.TestCase):
 
     def test_Name_page(self):
         tester = app.test_client(self)
-        response = tester.get('/hi/Hazem', content_type='html/text')
+        response = tester.get('/hi/Mohamed', content_type='html/text')
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, b'Hi there, Hazem')
+        self.assertEqual(response.data, b'Hi there, Mohamed')
 
 
 if __name__ == '__main__':
