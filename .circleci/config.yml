@@ -155,7 +155,7 @@ workflows:
               - aws-eks/create-cluster   
        - new-deployment:
           cluster-name: prod-cluster
-            requires:
+          requires:
              - aws-ecr/build-and-push-image
   ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
      #  - aws-eks/delete-cluster:
