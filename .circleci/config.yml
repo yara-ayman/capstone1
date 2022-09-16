@@ -153,7 +153,7 @@ workflows:
            region: us-east-1
            registry-id: registry_id  
            requires:
-              - aws-eks/create-cluster   
+              - lint-test-app   
        - new-deployment:
           cluster-name: prod-cluster
           requires:
