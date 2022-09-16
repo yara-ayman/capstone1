@@ -153,11 +153,11 @@ workflows:
            region: us-east-1
            registry-id: registry_id  
            requires:
-              - BuildPush   
+              - aws-eks/create-cluster   
        - new-deployment:
           cluster-name: prod-cluster
           requires:
-             - aws-ecr/build-and-push-image
+             - BuildPush
   ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
      #  - aws-eks/delete-cluster:
      #     cluster-name: prod-cluster
