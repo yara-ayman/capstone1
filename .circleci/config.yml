@@ -126,31 +126,31 @@ workflows:
   ########## In workflow sectiosn, Calling the jobs and Order it in correct order ##########
   deployment:
     jobs:
-       - aws-eks/create-cluster:
-           cluster-name: prod-cluster
-       - aws-ecr/build-and-push-image:
-           dockerfile: Dockerfile
+    #   - aws-eks/create-cluster:
+       #    cluster-name: prod-cluster
+      # - aws-ecr/build-and-push-image:
+        #   dockerfile: Dockerfile
           # path: ~/repo/Dockerfile
-           repo: devops-project
-           tag: 'web-app-1.0'  
-           region: us-east-1
-           registry-id: registry_id  
-           requires:
-              - aws-eks/create-cluster           
-       - prod-deployment:
-           cluster-name: prod-cluster
-           requires:
-              - aws-ecr/build-and-push-image
-       - lint-test-app:
-           requires:
-             - prod-deployment
+         #  repo: devops-project
+        #   tag: 'web-app-1.0'  
+        #   region: us-east-1
+        #   registry-id: registry_id  
+       #    requires:
+          #    - aws-eks/create-cluster           
+    #   - prod-deployment:
+          # cluster-name: prod-cluster
+          # requires:
+       #       - aws-ecr/build-and-push-image
+      # - lint-test-app:
+        #   requires:
+        #     - prod-deployment
       # - aws-ecr/build-and-push-image:
         #   repo: devops-project
-        ##  requires:
+        #  requires:
         #     - lint-test-app
-      # - new-deployment:
-          # cluster-name: prod-cluster
-         #  requires:
+      - new-deployment:
+          cluster-name: prod-cluster
+        #   requires:
           #   - aws-ecr/build-and-push-image
   ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
      #  - aws-eks/delete-cluster:
