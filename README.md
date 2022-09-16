@@ -5,12 +5,13 @@
 
 ## Project Overview
 
-The aim of Capstone Udacity project is to use the skills acquired throughout Nano Degree journey to demonstrate Linting, Testing a simple Flask Web Application, Creating a docker image and push it towards AWS ECR then perform a rolling update on AWS EKS cluster, all these tasks performed using Circleci pipeline.
+The goal of Capstone Udacity project is to use the skills gained from Nano Degree  to demonstrate Linting, Testing a simple Flask Web Application, Creating a docker image and push it to AWS ECR , perform a rolling update on AWS EKS cluster, all these tasks performed using Circleci pipeline.
 
 In this project some of Circleci orbs have been used:
-  -   circleci/aws-ecr@6.15.3
-  -   circleci/aws-eks@0.2.3
-  -   circleci/kubernetes@0.4.0
+  -   circleci/aws-ecr@8.1.2
+  -   circleci/aws-eks@2.2.0
+  -   circleci/kubernetes@0.4.0  
+  
 ---
 
 ## Setup the Environment, Lint, Test Application Locally

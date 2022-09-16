@@ -113,13 +113,18 @@ jobs:
              kubectl get deployment
              kubectl get services
              kubectl get pods
-             sleep 30
+             sleep 60
+             kubectl get pods
+             kubectl get services
+             sleep 60
+             kubectl get pods
+             kubectl get services
              export lb=`kubectl get service | tail -1 | cut -d " " -f 10`
              echo $lb
              export url="http://$lb:8000"
              curl $url
              curl "$url/hi/"
-             curl "$url/hi/hazem"
+             curl "$url/hi/Mohamed"
              kubectl get pods
 
 workflows:
