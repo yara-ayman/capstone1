@@ -50,10 +50,12 @@ jobs:
              kubectl get deployment
              kubectl get services
              kubectl get pods
-             sleep 30
-             kubectl get services
-             sleep 30
+             sleep 60
              kubectl get pods
+             kubectl get services
+             sleep 60
+             kubectl get pods
+             kubectl get services
              echo $lb
              export lb=`kubectl get service | tail -1 | cut -d " " -f 10`
              curl "http://$lb:8000"
