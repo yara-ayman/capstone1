@@ -1,7 +1,7 @@
 from flask import Flask 
 
 app = Flask(__name__)
-htht
+
 @app.route("/")
 def index():
     return "Welcome everyone to My Main page!"
