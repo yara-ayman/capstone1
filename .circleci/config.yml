@@ -6,7 +6,7 @@ orbs:
   kubernetes: circleci/kubernetes@0.4.0
 
 jobs:
-  #######£## This step used initdially to create the EKS clusters using Circleci Orbs instead of doing that manually ###########
+  ######### This step used initdially to create the EKS clusters using Circleci Orbs instead of doing that manually ###########
   # prod-cluster:
   #   executor: aws-eks/python3
   #   parameters:
