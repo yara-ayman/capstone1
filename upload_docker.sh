@@ -4,7 +4,7 @@
 # Assumes that an image is built via `run_docker.sh`
 # This file was used to push the original App docker image to AWS ECR
 
-# Step 1:
+#1 Step 1:
 # Authenticate
 #aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 273801816274.dkr.ecr.us-east-1.amazonaws.com
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 564374043688.dkr.ecr.us-east-1.amazonaws.com
