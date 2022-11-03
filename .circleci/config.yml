@@ -137,7 +137,7 @@ workflows:
            dockerfile: old-app-Dockerfile
         #   path: ~/repo/Dockerfile
            repo: ecr
-           tag: 'latest'  
+           tag: 'web-app-1.0'  
            region: us-east-1
            registry-id: registry_id  
            requires:
@@ -154,7 +154,7 @@ workflows:
            dockerfile: Dockerfile
         #   path: ~/repo/Dockerfile
            repo: ecr
-           tag: 'latest'  
+           tag: 'web-app-2.0'  
            region: us-east-1
            registry-id: registry_id  
            requires:
