@@ -22,8 +22,6 @@ spec:
     spec:
       containers:
       - name: web-app
-        #image: 099281978446.dkr.ecr.us-east-1.amazonaws.com/devops-project:web-app-2.0
         image: 564374043688.dkr.ecr.us-east-1.amazonaws.com/ecr:web-app-2.0
-
         ports:
         - containerPort: 5000
