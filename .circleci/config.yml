@@ -163,7 +163,7 @@ workflows:
           cluster-name: prod-cluster
           requires:
              - BuildPush
-  ########## This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
+  ##########1 This Step is only used in this pipeline to terminate resources after finishing the project, it's not correct for real life in this situation ##########
      #  - aws-eks/delete-cluster:
      #     cluster-name: prod-cluster
       #    requires:
